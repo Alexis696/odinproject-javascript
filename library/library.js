@@ -1,3 +1,5 @@
+const myLibrary = [];
+
 function Book(title, author, pages, read) {
   this.title = title;
   this.author = author;
@@ -5,9 +7,13 @@ function Book(title, author, pages, read) {
   this.read = read;
   this.info = function() {
     return `Title: ${this.title}\nAuthor: ${this.author}\nNo.Pages: ${this.pages}\nIsRead: ${this.read}`;
-  };
+  }
+}
+
+function addBookToLibrary(book) {
+  myLibrary.push(book);
 }
 
 favoriteBook = new Book("Rich Dad, Poor Dad", "Robert Kiyosaki", 273, true);
-console.log(favoriteBook.info());
-console.log(favoriteBook.valueOf());
+addBookToLibrary(favoriteBook);
+console.log(myLibrary);
