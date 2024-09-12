@@ -2,3 +2,10 @@
   border-style: solid;
   padding: 5px;
 }
+
+.bookProperties {
+  border-style: solid;
+  padding: 5px;
+  width: 100px;
+  height: 25px;
+}
