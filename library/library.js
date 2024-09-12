@@ -17,3 +17,15 @@ function addBookToLibrary(book) {
 favoriteBook = new Book("Rich Dad, Poor Dad", "Robert Kiyosaki", 273, true);
 addBookToLibrary(favoriteBook);
 console.log(myLibrary);
+
+for (let i = 0; i < myLibrary.length; i++) {
+  const libraryBook = document.createElement('tr');
+  libraryBook.classList.add('bookProperties');
+  document.querySelector('tbody').appendChild(libraryBook);
+  for (let j = 0; i < Object.keys(libraryBook).length - 1; i++) {
+    const bookProperty = document.createElement('td');
+    bookProperty.innerHTML = 'ahmed';
+    libraryBook.insertCell(j);
+    //document.getElementsByClassName('.bookProperties').appendChild(bookProperty);
+  }
+}
