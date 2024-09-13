@@ -6,10 +6,16 @@
 }
 
 .add-book-form {
+  height: 300px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
-input {
+#book-status {
+  width: fit-content;
+}
+
+.add-book-form {
   width: 50%;
 }

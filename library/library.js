@@ -1,9 +1,14 @@
 const myLibrary = [];
 
-const tableBody = document.querySelector('tbody');
+const tableBody = document.querySelector("tbody");
 
-const refreshButton = document.querySelector('.refresh');
-const addButton = document.querySelector('.add');
+const bTitleInput = document.getElementById("book-title");
+const bAuthorInput = document.getElementById("book-author");
+const bPagesInput = document.getElementById("book-pages");
+const bStatusInput = document.getElementById("book-status");
+
+const refreshButton = document.querySelector(".refresh-button");
+const addButton = document.querySelector(".add-button");
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -18,28 +23,44 @@ function Book(title, author, pages, read) {
 favoriteBook = new Book("Rich Dad, Poor Dad", "Robert Kiyosaki", 273, true);
 addBookToLibrary(favoriteBook);
 refreshData();
-console.log(myLibrary);
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
+  console.log(myLibrary);
 }
 
 function refreshData() {
+  for (let r = 0; r < tableBody.rows.length; r++) {
+    console.log(tableBody.rows.length);
+    tableBody.removeChild(tableBody.rows[r]);
+  }
+
   for (let i = 0; i < myLibrary.length; i++) {
-    //tableBody.insertRow(i);
-    const libraryBook = tableBody.insertRow(i);//tableBody.rows[i];
+    const libraryBook = tableBody.insertRow(i);
     for (let j = 0; j < Object.keys(myLibrary[i]).length - 1; j++) {
       const bookProperty = libraryBook.insertCell();
-      bookProperty.classList.add('cell');
+      bookProperty.classList.add("cell");
       bookProperty.textContent = Object.values(myLibrary[i])[j];
     }
   }
+  console.log(myLibrary);
 }
 
 refreshButton.addEventListener("click", function() {
-  refreshData()
+  refreshData();
 });
 
 addButton.addEventListener("click", function() {
-   
+  const bookIsRead = bStatusInput.checked ? true : false;
+  const newBook = new Book(
+    bTitleInput.value,
+    bAuthorInput.value,
+    bPagesInput.value,
+    bookIsRead,
+  );
+  addBookToLibrary(newBook);
+  bTitleInput.value = "";
+  bAuthorInput.value = "";
+  bPagesInput.value = 0;
+  bStatusInput.checked = false;
 });
