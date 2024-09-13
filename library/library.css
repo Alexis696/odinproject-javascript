@@ -1,11 +1,15 @@
 .cell {
   border-style: solid;
   padding: 5px;
+  text-align: center;
+  justify-content: center;
 }
 
-.bookProperties {
-  border-style: solid;
-  padding: 5px;
-  width: 100px;
-  height: 25px;
+.add-book-form {
+  display: flex;
+  flex-direction: column;
+}
+
+input {
+  width: 50%;
 }

@@ -1,5 +1,9 @@
 const myLibrary = [];
+
+const tableBody = document.querySelector('tbody');
+
 const refreshButton = document.querySelector('.refresh');
+const addButton = document.querySelector('.add');
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -11,28 +15,31 @@ function Book(title, author, pages, read) {
   };
 }
 
+favoriteBook = new Book("Rich Dad, Poor Dad", "Robert Kiyosaki", 273, true);
+addBookToLibrary(favoriteBook);
+refreshData();
+console.log(myLibrary);
+
 function addBookToLibrary(book) {
   myLibrary.push(book);
 }
 
-favoriteBook = new Book("Rich Dad, Poor Dad", "Robert Kiyosaki", 273, true);
-addBookToLibrary(favoriteBook);
-console.log(myLibrary);
-
 function refreshData() {
   for (let i = 0; i < myLibrary.length; i++) {
-    const libraryBook = document.createElement("tr");
-    libraryBook.classList.add("bookProperties");
-    document.querySelector("tbody").appendChild(libraryBook);
-    for (let j = 0; i < Object.keys(libraryBook).length - 1; j++) {
-      const bookProperty = document.createElement("td");
-      bookProperty.innerHTML = "ahmed";
-      libraryBook.insertCell(j);
-      //document.getElementsByClassName('.bookProperties').appendChild(bookProperty);
+    //tableBody.insertRow(i);
+    const libraryBook = tableBody.insertRow(i);//tableBody.rows[i];
+    for (let j = 0; j < Object.keys(myLibrary[i]).length - 1; j++) {
+      const bookProperty = libraryBook.insertCell();
+      bookProperty.classList.add('cell');
+      bookProperty.textContent = Object.values(myLibrary[i])[j];
     }
   }
 }
 
 refreshButton.addEventListener("click", function() {
   refreshData()
+});
+
+addButton.addEventListener("click", function() {
+   
 });
