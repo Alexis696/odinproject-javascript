@@ -19,3 +19,7 @@
 .add-book-form {
   width: 50%;
 }
+
+.delete-buttons {
+  content: 'delete book';
+}

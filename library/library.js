@@ -30,11 +30,16 @@ for (let i = 0; i < myLibrary.length; i++) {
     bookProperty.classList.add("cell");
     bookProperty.textContent = Object.values(myLibrary[i])[j];
   }
+  const deleteBookButton = document.createElement('button');
+  deleteBookButton.setAttribute('id', 'delete-button');
+  const deleteBookCell = libraryBook.insertCell();
+  document.getElementById('delete-button').value = "Delete book";
+  //deleteBookButton.classList.add('delete-buttons');
+  deleteBookCell.append(deleteBookButton);
 }
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
-  console.log(myLibrary);
 }
 
 function refreshData() {
@@ -44,9 +49,6 @@ function refreshData() {
     bookProperty.classList.add("cell");
     bookProperty.textContent = Object.values(myLibrary[myLibrary.length-1])[j];
   }
-
-
-  console.log(myLibrary);
 }
 
 refreshButton.addEventListener("click", function () {
