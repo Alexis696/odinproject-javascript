@@ -20,7 +20,7 @@ function Book(title, author, pages, read) {
   };
 }
 
-favoriteBook = new Book("Rich Dad, Poor Dad", "Robert Kiyosaki", 273, true);
+favoriteBook = new Book("Rich Dad, Poor Dad", "Robert Kiyosaki", "273", true);
 addBookToLibrary(favoriteBook);
 refreshData();
 
@@ -30,8 +30,9 @@ function addBookToLibrary(book) {
 }
 
 function refreshData() {
-  for (let r = 0; r < tableBody.rows.length; r++) {
-    console.log(tableBody.rows.length);
+  const numberOfRows = tableBody.rows.length;
+  for (let r = 0; r < numberOfRows; r++) {
+    console.log(numberOfRows);
     tableBody.removeChild(tableBody.rows[r]);
   }
 
