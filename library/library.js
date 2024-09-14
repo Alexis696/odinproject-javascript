@@ -15,14 +15,22 @@ function Book(title, author, pages, read) {
   this.author = author;
   this.pages = pages;
   this.read = read;
-  this.info = function() {
+  this.info = function () {
     return `Title: ${this.title}\nAuthor: ${this.author}\nNo.Pages: ${this.pages}\nIsRead: ${this.read}`;
   };
 }
 
 favoriteBook = new Book("Rich Dad, Poor Dad", "Robert Kiyosaki", "273", true);
 addBookToLibrary(favoriteBook);
-refreshData();
+
+for (let i = 0; i < myLibrary.length; i++) {
+  const libraryBook = tableBody.insertRow(i);
+  for (let j = 0; j < Object.keys(myLibrary[i]).length - 1; j++) {
+    const bookProperty = libraryBook.insertCell();
+    bookProperty.classList.add("cell");
+    bookProperty.textContent = Object.values(myLibrary[i])[j];
+  }
+}
 
 function addBookToLibrary(book) {
   myLibrary.push(book);
@@ -30,38 +38,40 @@ function addBookToLibrary(book) {
 }
 
 function refreshData() {
-  const numberOfRows = tableBody.rows.length;
-  for (let r = 0; r < numberOfRows; r++) {
-    console.log(numberOfRows);
-    tableBody.removeChild(tableBody.rows[r]);
+  const newRow = tableBody.insertRow();
+  for (let j = 0; j < Object.keys(myLibrary[0]).length - 1; j++) {
+    const bookProperty = newRow.insertCell();
+    bookProperty.classList.add("cell");
+    bookProperty.textContent = Object.values(myLibrary[myLibrary.length-1])[j];
   }
 
-  for (let i = 0; i < myLibrary.length; i++) {
-    const libraryBook = tableBody.insertRow(i);
-    for (let j = 0; j < Object.keys(myLibrary[i]).length - 1; j++) {
-      const bookProperty = libraryBook.insertCell();
-      bookProperty.classList.add("cell");
-      bookProperty.textContent = Object.values(myLibrary[i])[j];
-    }
-  }
+
   console.log(myLibrary);
 }
 
-refreshButton.addEventListener("click", function() {
+refreshButton.addEventListener("click", function () {
   refreshData();
+  refreshButton.disabled = true;
+  addButton.disabled = false;
 });
 
-addButton.addEventListener("click", function() {
-  const bookIsRead = bStatusInput.checked ? true : false;
-  const newBook = new Book(
-    bTitleInput.value,
-    bAuthorInput.value,
-    bPagesInput.value,
-    bookIsRead,
-  );
-  addBookToLibrary(newBook);
-  bTitleInput.value = "";
-  bAuthorInput.value = "";
-  bPagesInput.value = 0;
-  bStatusInput.checked = false;
+addButton.addEventListener("click", function () {
+  //event.preventDefault();
+  
+  if (bTitleInput.value.trim() !== "" && bAuthorInput.value.trim() !== "" && bPagesInput.value.trim() != "") {
+    const bookIsRead = bStatusInput.checked ? true : false;
+    const newBook = new Book(
+      bTitleInput.value,
+      bAuthorInput.value,
+      bPagesInput.value,
+      bookIsRead,
+    );
+    addBookToLibrary(newBook);
+    bTitleInput.value = "";
+    bAuthorInput.value = "";
+    bPagesInput.value = "";
+    bStatusInput.checked = false;
+    refreshButton.disabled = false;
+    addButton.disabled = true;
+  }
 });
