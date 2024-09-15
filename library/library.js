@@ -67,8 +67,6 @@ refreshButton.addEventListener("click", function () {
 });
 
 addButton.addEventListener("click", function () {
-  //event.preventDefault();
-  
   if (bTitleInput.value.trim() !== "" && bAuthorInput.value.trim() !== "" && bPagesInput.value.trim() != "") {
     const bookIsRead = bStatusInput.checked ? true : false;
     const newBook = new Book(
@@ -87,6 +85,11 @@ addButton.addEventListener("click", function () {
   }
 });
 
-deleteButtons[0].addEventListener("click", function () {
-  
+document.addEventListener("click", function () {
+  for (let i = 0; i < deleteButtons.length; i++) {
+    deleteButtons[i].onclick = function () {
+      tableBody.deleteRow(i);
+      myLibrary.pop(i);
+    }
+  }
 });
