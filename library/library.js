@@ -1,7 +1,7 @@
 const myLibrary = [];
 
 const tableBody = document.querySelector("tbody");
-let bookRows = document.querySelectorAll(".book-row");
+let bookRows = document.getElementsByClassName("book-row");
 
 const bTitleInput = document.getElementById("book-title");
 const bAuthorInput = document.getElementById("book-author");
@@ -29,7 +29,7 @@ addBookToLibrary(favoriteBook);
 for (let i = 0; i < myLibrary.length; i++) {
   const libraryBook = tableBody.insertRow(i);
   libraryBook.classList.add('book-row');
-  bookRows = document.querySelectorAll(".book-row");
+  bookRows = document.getElementsByClassName("book-row");
   for (let j = 0; j < Object.keys(myLibrary[i]).length - 1; j++) {
     const bookProperty = libraryBook.insertCell();
     bookProperty.classList.add("cell");
@@ -52,7 +52,7 @@ function addBookToLibrary(book) {
 function refreshData() {
   const newRow = tableBody.insertRow();
   newRow.classList.add('book-row');
-  bookRows = document.querySelectorAll(".book-row");
+  bookRows = document.getElementsByClassName("book-row");
   for (let j = 0; j < Object.keys(myLibrary[0]).length - 1; j++) {
     const bookProperty = newRow.insertCell();
     bookProperty.classList.add("cell");
@@ -111,7 +111,10 @@ removeButton.addEventListener("click", function () {
   }
   for (let i = 0; i < deleteButtons.length; i++) {
     deleteButtons[i].onclick = function () {
+      console.log(i);
+      console.log(bookRows[i]);
       tableBody.deleteRow(i);
+      //bookRows[i].remove();
       myLibrary.splice(i, 1);
       console.log(myLibrary);
       console.log("current index: " + i);
