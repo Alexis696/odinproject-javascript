@@ -1,3 +1,7 @@
+body {
+  background-color: gray;
+}
+
 .cell {
   border-style: solid;
   padding: 5px;
