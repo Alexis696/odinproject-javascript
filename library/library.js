@@ -11,7 +11,7 @@ const bStatusInput = document.getElementById("book-status");
 const refreshButton = document.querySelector(".refresh-button");
 const addButton = document.querySelector(".add-button");
 const removeButton = document.querySelector(".remove-button");
-let deleteButtons = document.querySelectorAll(".delete-button");
+let deleteButtons = document.getElementsByClassName("delete-button");
 
 function Book(title, author, pages, read) {
   this.title = title;
@@ -35,13 +35,12 @@ for (let i = 0; i < myLibrary.length; i++) {
     bookProperty.classList.add("cell");
     bookProperty.textContent = Object.values(myLibrary[i])[j];
   }
-  const deleteBookButton = document.createElement("button");
-  deleteBookButton.setAttribute("class", "delete-button");
   const deleteBookCell = libraryBook.insertCell();
-  deleteBookButton.innerText = "Remove";
-  deleteBookButton.disabled = true;
-  deleteBookCell.append(deleteBookButton);
-  deleteButtons = document.querySelectorAll(".delete-button");
+  const package = createDeleteButton()
+  const deleteButton = package[1];
+  deleteButtons = package[0];
+  deleteBookCell.append(deleteButton);
+  deleteButtons = document.getElementsByClassName("delete-button");
 }
 
 function addBookToLibrary(book) {
@@ -60,14 +59,42 @@ function refreshData() {
       j
     ];
   }
+  const deleteBookCell = newRow.insertCell();
+  const package = createDeleteButton()
+  const deleteButton = package[1];
+  deleteButtons = package[0];
+  deleteBookCell.append(deleteButton);
+  deleteButtons = document.getElementsByClassName("delete-button");
+  console.log("Delete buttons: " + deleteButtons.length);
+}
+
+function createDeleteButton() {
   const deleteBookButton = document.createElement("button");
   deleteBookButton.setAttribute("class", "delete-button");
-  const deleteBookCell = newRow.insertCell();
-  deleteBookButton.innerText = "Remove";
+  deleteBookButton.innerText = "Delete";
   deleteBookButton.disabled = true;
-  deleteBookCell.append(deleteBookButton);
-  deleteButtons = document.querySelectorAll(".delete-button");
-  console.log("Delete buttons: " + deleteButtons.length);
+  deleteButtons = document.getElementsByClassName("delete-button");
+  deleteBookButton.onclick = deleteBook();
+  return [deleteButtons, deleteBookButton];
+}
+
+function deleteBook() {
+  console.log(deleteButtons.length);
+  for (let i = 0; i < deleteButtons.length; i++) {
+    console.log("adjofg");
+    deleteButtons[i].onclick = function () {
+      console.log(i);
+      deleteButtons[i].remove();
+      tableBody.deleteRow(i);
+      //bookRows[i].remove();
+      myLibrary.splice(i, 1);
+      console.log(deleteButtons);
+      console.log(myLibrary);
+      console.log("current index: " + i);
+      console.log("max index: " + deleteButtons.length);
+      console.log(bookRows);
+    };
+  }
 }
 
 refreshButton.addEventListener("click", function () {
@@ -108,18 +135,5 @@ removeButton.addEventListener("click", function () {
       deleteButtons[i].disabled = true;
       removeButton.innerHTML = "Remove Book";
     }
-  }
-  for (let i = 0; i < deleteButtons.length; i++) {
-    deleteButtons[i].onclick = function () {
-      console.log(i);
-      console.log(bookRows[i]);
-      tableBody.deleteRow(i);
-      //bookRows[i].remove();
-      myLibrary.splice(i, 1);
-      console.log(myLibrary);
-      console.log("current index: " + i);
-      console.log("max index: " + deleteButtons.length);
-      console.log(bookRows);
-    };
   }
 });
