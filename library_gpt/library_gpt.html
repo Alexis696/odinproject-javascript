@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Library System</title>
+    <link rel="stylesheet" href="./library_gpt.css">
+</head>
+<body>
+
+    <h1>Library System</h1>
+
+    <table id="libraryTable">
+        <thead>
+            <tr>
+                <th>Name of the book</th>
+                <th>Author</th>
+                <th>Number of Pages</th>
+                <th>Is the Book Read?</th>
+                <th>Actions</th> <!-- Actions column for delete button -->
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Books will be added here dynamically -->
+        </tbody>
+    </table>
+
+    <h2>Add a new book</h2>
+    <form id="bookForm">
+        <label for="bookName">Book Name:</label>
+        <input type="text" id="bookName" required><br>
+
+        <label for="author">Author:</label>
+        <input type="text" id="author" required><br>
+
+        <label for="pages">Number of Pages:</label>
+        <input type="number" id="pages" required><br>
+
+        <label for="readStatus">Have you read this book?</label>
+        <select id="readStatus" required>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+        </select><br>
+
+        <button type="submit">Add Book</button>
+    </form>
+
+    <script src="./library_gpt.js"></script>
+
+</body>
+</html>
