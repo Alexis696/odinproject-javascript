@@ -25,6 +25,7 @@ function Book(title, author, pages, read) {
 
 favoriteBook = new Book("Rich Dad, Poor Dad", "Robert Kiyosaki", "273", true);
 addBookToLibrary(favoriteBook);
+console.log(favoriteBook.info());
 
 for (let i = 0; i < myLibrary.length; i++) {
   const libraryBook = tableBody.insertRow(i);
@@ -36,9 +37,9 @@ for (let i = 0; i < myLibrary.length; i++) {
     bookProperty.textContent = Object.values(myLibrary[i])[j];
   }
   const deleteBookCell = libraryBook.insertCell();
-  const package = createDeleteButton()
-  const deleteButton = package[1];
-  deleteButtons = package[0];
+  const pack = createDeleteButton()
+  const deleteButton = pack[1];
+  deleteButtons = pack[0];
   deleteBookCell.append(deleteButton);
   deleteButtons = document.getElementsByClassName("delete-button");
 }
