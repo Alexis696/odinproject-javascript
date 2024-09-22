@@ -5,30 +5,32 @@ function createPlayer(name, symbol) {
 }
 
 function GameBoard() {
-  topL = " ";
-  topM = " ";
-  topR = " ";
-  midL = " ";
-  midM = " ";
-  midR = " ";
-  botL = " ";
-  botM = " ";
-  botR = " ";
+  board = {
+  ["topL"] : " ",
+  ["topM"] : " ",
+  ["topR"] : " ",
+  ["midL"] : " ",
+  ["midM"] : " ",
+  ["midR"] : " ",
+  ["botL"] : " ",
+  ["botM"] : " ",
+  ["botR"] : " "
+};
 
   const printBoardTUI = function() {
-    console.log(`${topL} | ${topM} | ${topR}
+    console.log(`${board["topL"]} | ${board["topM"]} | ${board["topR"]}
 ---------
-${midL} | ${midM} | ${midR}
+${board["midL"]} | ${board["midM"]} | ${board["midR"]}
 ---------
-${botL} | ${botM} | ${botR}`);
+${board["botL"]} | ${board["botM"]} | ${board["botR"]}`);
   };
 
-  return { printBoardTUI };
+  return { board , printBoardTUI };
 }
 
 function runTUI() {
   currentBoard = new GameBoard();
-  currentBoard.printBoardTUI();
+  let currentPlayer = {};
   
   console.log("TIC TAC TOE");
   player1Name = prompt("Insert name for player 1: ");
@@ -38,6 +40,25 @@ function runTUI() {
   player2Name = prompt("Insert name for player 2: ");
   player2Symbol = prompt("Insert a character to represent player 2: ");
   player2 = createPlayer(player2Name, player2Symbol);
+
+  console.log("Players:");
+  console.log(`Player 1: ${player1.name} = ${player1.symbol}`);
+  console.log(`Player 2: ${player2.name} = ${player2.symbol}`);
+
+  while (true) {
+    console.log("Current Board: ");
+    currentBoard.printBoardTUI();
+
+    if (currentPlayer === player1) {
+      currentPlayer = player2;
+    } else {
+      currentPlayer = player1;
+    }
+
+    placement = prompt(`It's ${currentPlayer.name}'s turn. Type where you want your mark: `);
+    currentBoard.board[placement] = currentPlayer.symbol;
+    
+  }
 }
 
 const gameLogic = (function() { })();
