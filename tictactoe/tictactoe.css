@@ -1,0 +1,19 @@
+body {
+  box-sizing: border-box;
+  background-color: darkblue;
+}
+
+.board {
+  display: grid;
+  grid-template-areas: 
+    "topL topM topR"
+    "midL midM midR"
+    "botL botM botR";
+  width: fit-content;
+}
+
+.cell {
+  height: 100px;
+  width: 100px;
+  border-style: solid;
+}
