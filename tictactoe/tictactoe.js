@@ -4,7 +4,13 @@ const cells = document.querySelectorAll(".cell");
 const addPlayerButton = document.querySelector("#player-form");
 
 function createPlayer(name, symbol) {
-  return { name, symbol };
+  let wins = 0;
+  let losses = 0;
+
+  const getWinsLosses = () => `${wins}/${losses}`;
+  const Win = () => wins++;
+  const Lose = () => losses++;
+  return { name, symbol, getWinsLosses, Win, Lose };
 }
 
 function updatePlayerList() {
@@ -17,6 +23,7 @@ function updatePlayerList() {
     row.innerHTML = `
       <td class="table-cell">${player.name}</td>
       <td class="table-cell">${player.symbol}</td>
+      <td class="table-cell">${player.getWinsLosses()}</td>
     `;
 
     playerTable.append(row);
