@@ -12,6 +12,17 @@ h2 {
   margin-top: 25px;
 }
 
+form {
+  display: grid;
+  grid-template-columns: 350px;
+  gap: 10px;
+}
+
+.form-label {
+  color: lightgray;
+  font-size: 20px;
+}
+
 .board {
   display: grid;
   grid-template-areas: 

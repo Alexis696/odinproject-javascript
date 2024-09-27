@@ -1,30 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Tic-Tac-Toe by Aleksis</title>
-    <link href="./tictactoe.css" rel="stylesheet">
+    <link href="./tictactoe.css" rel="stylesheet" />
   </head>
   <body>
     <h1>Tic Tac Toe</h1>
     <h2>Add new player</h2>
+    <form id="player-form">
+      <label class="form-label" for="player-name">Player Name:</label>
+      <input type="text" id="player-name" required><br>
 
+      <label class="form-label" for="player-symbol">Player Symbol (only 1 character):</label>
+      <input type="text" id="player-symbol" required><br>
+
+      <button class="add-player-button" type="submit">Add Player</button>
+    </form>
     <h2>Play</h2>
     <div class="board">
-      <div class="cell topL"> </div>
-      <div class="cell topM"> </div>
-      <div class="cell topR"> </div>
-      <div class="cell midL"> </div>
-      <div class="cell midM"> </div>
-      <div class="cell midR"> </div>
-      <div class="cell botL"> </div>
-      <div class="cell botM"> </div>
-      <div class="cell botR"> </div>
+      <div class="cell topL"></div>
+      <div class="cell topM"></div>
+      <div class="cell topR"></div>
+      <div class="cell midL"></div>
+      <div class="cell midM"></div>
+      <div class="cell midR"></div>
+      <div class="cell botL"></div>
+      <div class="cell botM"></div>
+      <div class="cell botR"></div>
     </div>
     <h2>Scoreboard</h2>
     <div class="scoreboard">
-      <table>
+      <table id="player-table">
         <tr>
           <th class="table-cell">Player</th>
           <th class="table-cell">Symbol</th>
