@@ -8,10 +8,19 @@ function createPlayer(name, symbol) {
 }
 
 function updatePlayerList() {
-  const playerTable = document.querySelector("#player-table");
+  const playerTable = document.querySelector("#player-table tbody");
   playerTable.innerHTML = '';
 
+  listOfPlayers.forEach((player) => {
+    const row = document.createElement('tr');
 
+    row.innerHTML = `
+      <td class="table-cell">${player.name}</td>
+      <td class="table-cell">${player.symbol}</td>
+    `;
+
+    playerTable.append(row);
+  });
 }
 
 function runGUI() {
@@ -32,6 +41,7 @@ function runGUI() {
     console.log(listOfPlayers);
 
     addPlayerButton.reset();
+    updatePlayerList();
   });
 }
 
