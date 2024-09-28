@@ -13,43 +13,65 @@ function createPlayer(name, symbol) {
   return { name, symbol, getWinsLosses, Win, Lose };
 }
 
-function updatePlayerList() {
-  const playerTable = document.querySelector("#player-table tbody");
-  playerTable.innerHTML = '';
+const displayController = (function () {
+  const updatePlayerTable = function () {
+    const playerTable = document.querySelector("#player-table tbody");
+    playerTable.innerHTML = "";
 
-  listOfPlayers.forEach((player) => {
-    const row = document.createElement('tr');
+    listOfPlayers.forEach((player) => {
+      const row = document.createElement("tr");
 
-    row.innerHTML = `
-      <td class="table-cell">${player.name}</td>
-      <td class="table-cell">${player.symbol}</td>
-      <td class="table-cell">${player.getWinsLosses()}</td>
-    `;
+      row.innerHTML = `
+<td class="table-cell">${player.name}</td>
+<td class="table-cell">${player.symbol}</td>
+<td class="table-cell">${player.getWinsLosses()}</td>
+`;
 
-    playerTable.append(row);
-  });
-}
+      playerTable.append(row);
+    });
+  };
+
+  return { updatePlayerTable };
+})();
 
 function runGUI() {
-  for (let i = 0; i < cells.length; i++) {
-    cells[i].addEventListener("click", function() {
-      cells[i].innerText = "X";
-    });
-  }
+  const gameBoard = document.querySelector(".board");
+  gameBoard.style.visibility = "hidden";
 
-  addPlayerButton.addEventListener("submit", function(event) {
+  addPlayerButton.addEventListener("submit", function (event) {
     event.preventDefault();
 
     const playerName = document.getElementById("player-name").value;
-    const playerSymbol= document.getElementById("player-symbol").value;
+    const playerSymbol = document.getElementById("player-symbol").value;
 
     const newPlayer = createPlayer(playerName, playerSymbol);
     listOfPlayers.push(newPlayer);
-    console.log(listOfPlayers);
 
     addPlayerButton.reset();
-    updatePlayerList();
+    displayController.updatePlayerTable();
+
+    console.log(listOfPlayers.length);
+
+    if (listOfPlayers.length === 2) {
+      gameBoard.style.visibility = "visible";
+      addPlayerButton.style.display = "none";
+    }
   });
+
+  let currentPlayer = {};
+
+  if (currentPlayer == listOfPlayers[0]) {
+    currentPlayer = listOfPlayers[1];
+  } else {
+    currentPlayer = listOfPlayers[0];
+  }
+  console.log(currentPlayer);
+
+  for (let i = 0; i < cells.length; i++) {
+    cells[i].addEventListener("click", function () {
+      cells[i].innerText = currentPlayer.symbol;
+    });
+  }
 }
 
 runGUI();
