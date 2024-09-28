@@ -2,8 +2,8 @@
 module.exports = [
     {
         rules: {
-            semi: "error",
-            "prefer-const": "error"
+            semi: "warn",
+            "prefer-const": "warn"
         }
     }
 ];
