@@ -1,4 +1,6 @@
 let listOfPlayers = [];
+const gameBoard = document.querySelector(".board");
+gameBoard.style.visibility = "hidden";
 
 const cells = document.querySelectorAll(".cell");
 const addPlayerButton = document.querySelector("#player-form");
@@ -13,8 +15,8 @@ function createPlayer(name, symbol) {
   return { name, symbol, getWinsLosses, Win, Lose };
 }
 
-const displayController = (function () {
-  const updatePlayerTable = function () {
+const displayController = (function() {
+  const updatePlayerTable = function() {
     const playerTable = document.querySelector("#player-table tbody");
     playerTable.innerHTML = "";
 
@@ -34,13 +36,8 @@ const displayController = (function () {
   return { updatePlayerTable };
 })();
 
-function runGUI() {
-  const gameBoard = document.querySelector(".board");
-  gameBoard.style.visibility = "hidden";
-
-  addPlayerButton.addEventListener("submit", function (event) {
-    event.preventDefault();
-
+const gameLogic = (function() {
+  const addPlayerToList = function() {
     const playerName = document.getElementById("player-name").value;
     const playerSymbol = document.getElementById("player-symbol").value;
 
@@ -49,29 +46,40 @@ function runGUI() {
 
     addPlayerButton.reset();
     displayController.updatePlayerTable();
+  };
 
+  addPlayerButton.addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    addPlayerToList();
     console.log(listOfPlayers.length);
 
     if (listOfPlayers.length === 2) {
-      gameBoard.style.visibility = "visible";
-      addPlayerButton.style.display = "none";
+      runGUI();
     }
   });
 
-  let currentPlayer = {};
+  const changeCurrentPlayer = function(currentPlayer) {
+    if (currentPlayer == listOfPlayers[0]) {
+      currentPlayer = listOfPlayers[1];
+    } else {
+      currentPlayer = listOfPlayers[0];
+    }
 
-  if (currentPlayer == listOfPlayers[0]) {
-    currentPlayer = listOfPlayers[1];
-  } else {
-    currentPlayer = listOfPlayers[0];
-  }
-  console.log(currentPlayer);
+    return currentPlayer;
+  };
 
-  for (let i = 0; i < cells.length; i++) {
-    cells[i].addEventListener("click", function () {
-      cells[i].innerText = currentPlayer.symbol;
-    });
-  }
+  return { changeCurrentPlayer };
+})();
+
+function runGUI() {
+  gameBoard.style.visibility = "visible";
+  addPlayerButton.style.display = "none";
+
+  let isOver = false;
+  let currentPlayer = listOfPlayers[0];
+
+  cells.forEach((cell) => {
+    cell.addEventListener("click", insertMark);
+  });
 }
-
-runGUI();
