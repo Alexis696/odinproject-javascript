@@ -33,7 +33,27 @@ const displayController = (function() {
     });
   };
 
-  return { updatePlayerTable };
+  const runGame = function() {
+    gameBoard.style.visibility = "visible";
+    addPlayerButton.style.display = "none";
+
+    let currentPlayer = listOfPlayers[0];
+
+    cells.forEach((cell) => {
+      cell.addEventListener("click", function(event) {
+        const clickedCell = event.target;
+
+        if (clickedCell.textContent !== "") {
+          console.log("This cell is already filled, choose another one");
+        } else {
+          clickedCell.textContent = currentPlayer.symbol;
+          currentPlayer = gameLogic.changeCurrentPlayer(currentPlayer);
+        }
+      });
+    });
+  };
+
+  return { updatePlayerTable, runGame };
 })();
 
 const gameLogic = (function() {
@@ -55,7 +75,7 @@ const gameLogic = (function() {
     console.log(listOfPlayers.length);
 
     if (listOfPlayers.length === 2) {
-      runGUI();
+      displayController.runGame();
     }
   });
 
@@ -69,17 +89,34 @@ const gameLogic = (function() {
     return currentPlayer;
   };
 
+  const checkWinner = function(currentPlayer) {
+    if (
+      (currentPlayer.symbol === board["topL"] &&
+        currentPlayer.symbol === board["topM"] &&
+        currentPlayer.symbol === board["topR"]) ||
+      (currentPlayer.symbol === board["midL"] &&
+        currentPlayer.symbol === board["midM"] &&
+        currentPlayer.symbol === board["midR"]) ||
+      (currentPlayer.symbol === board["botL"] &&
+        currentPlayer.symbol === board["botM"] &&
+        currentPlayer.symbol === board["botR"]) ||
+      (currentPlayer.symbol === board["topL"] &&
+        currentPlayer.symbol === board["midL"] &&
+        currentPlayer.symbol === board["botL"]) ||
+      (currentPlayer.symbol === board["topM"] &&
+        currentPlayer.symbol === board["midM"] &&
+        currentPlayer.symbol === board["botM"]) ||
+      (currentPlayer.symbol === board["topR"] &&
+        currentPlayer.symbol === board["midR"] &&
+        currentPlayer.symbol === board["botR"]) ||
+      (currentPlayer.symbol === board["topL"] &&
+        currentPlayer.symbol === board["midM"] &&
+        currentPlayer.symbol === board["botR"]) ||
+      (currentPlayer.symbol === board["botL"] &&
+        currentPlayer.symbol === board["midM"] &&
+        currentPlayer.symbol === board["topR"])
+    );
+  };
+
   return { changeCurrentPlayer };
 })();
-
-function runGUI() {
-  gameBoard.style.visibility = "visible";
-  addPlayerButton.style.display = "none";
-
-  let isOver = false;
-  let currentPlayer = listOfPlayers[0];
-
-  cells.forEach((cell) => {
-    cell.addEventListener("click", insertMark);
-  });
-}
