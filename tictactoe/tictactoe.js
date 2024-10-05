@@ -47,6 +47,10 @@ const displayController = (function() {
           console.log("This cell is already filled, choose another one");
         } else {
           clickedCell.textContent = currentPlayer.symbol;
+          if (gameLogic.checkWinner(currentPlayer)) {
+            console.log(`${currentPlayer.name} won!`);
+            return;
+          }
           currentPlayer = gameLogic.changeCurrentPlayer(currentPlayer);
         }
       });
@@ -91,32 +95,35 @@ const gameLogic = (function() {
 
   const checkWinner = function(currentPlayer) {
     if (
-      (currentPlayer.symbol === board["topL"] &&
-        currentPlayer.symbol === board["topM"] &&
-        currentPlayer.symbol === board["topR"]) ||
-      (currentPlayer.symbol === board["midL"] &&
-        currentPlayer.symbol === board["midM"] &&
-        currentPlayer.symbol === board["midR"]) ||
-      (currentPlayer.symbol === board["botL"] &&
-        currentPlayer.symbol === board["botM"] &&
-        currentPlayer.symbol === board["botR"]) ||
-      (currentPlayer.symbol === board["topL"] &&
-        currentPlayer.symbol === board["midL"] &&
-        currentPlayer.symbol === board["botL"]) ||
-      (currentPlayer.symbol === board["topM"] &&
-        currentPlayer.symbol === board["midM"] &&
-        currentPlayer.symbol === board["botM"]) ||
-      (currentPlayer.symbol === board["topR"] &&
-        currentPlayer.symbol === board["midR"] &&
-        currentPlayer.symbol === board["botR"]) ||
-      (currentPlayer.symbol === board["topL"] &&
-        currentPlayer.symbol === board["midM"] &&
-        currentPlayer.symbol === board["botR"]) ||
-      (currentPlayer.symbol === board["botL"] &&
-        currentPlayer.symbol === board["midM"] &&
-        currentPlayer.symbol === board["topR"])
-    );
+      (currentPlayer.symbol === document.querySelector(".topL").textContent &&
+        currentPlayer.symbol === document.querySelector(".topM").textContent &&
+        currentPlayer.symbol === document.querySelector(".topR").textContent) ||
+      (currentPlayer.symbol === document.querySelector(".midL").textContent &&
+        currentPlayer.symbol === document.querySelector(".midM").textContent &&
+        currentPlayer.symbol === document.querySelector(".midR").textContent) ||
+      (currentPlayer.symbol === document.querySelector(".botL").textContent &&
+        currentPlayer.symbol === document.querySelector(".botM").textContent &&
+        currentPlayer.symbol === document.querySelector(".botR").textContent) ||
+      (currentPlayer.symbol === document.querySelector(".topL").textContent &&
+        currentPlayer.symbol === document.querySelector(".midL").textContent &&
+        currentPlayer.symbol === document.querySelector(".botL").textContent) ||
+      (currentPlayer.symbol === document.querySelector(".topM").textContent &&
+        currentPlayer.symbol === document.querySelector(".midM").textContent &&
+        currentPlayer.symbol === document.querySelector(".botM").textContent) ||
+      (currentPlayer.symbol === document.querySelector(".topR").textContent &&
+        currentPlayer.symbol === document.querySelector(".midR").textContent &&
+        currentPlayer.symbol === document.querySelector(".botR").textContent) ||
+      (currentPlayer.symbol === document.querySelector(".topL").textContent &&
+        currentPlayer.symbol === document.querySelector(".midM").textContent &&
+        currentPlayer.symbol === document.querySelector(".botR").textContent) ||
+      (currentPlayer.symbol === document.querySelector(".botL").textContent &&
+        currentPlayer.symbol === document.querySelector(".midM").textContent &&
+        currentPlayer.symbol === document.querySelector(".topR").textContent)
+    ) {
+      return true;
+    }
+    return false;
   };
 
-  return { changeCurrentPlayer };
+  return { changeCurrentPlayer, checkWinner };
 })();
