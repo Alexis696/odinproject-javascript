@@ -51,7 +51,6 @@ const displayController = (function () {
     cells.forEach((cell) => {
       cell.addEventListener("click", function (event) {
         const clickedCell = event.target;
-        gameStatus.textContent = `It's ${currentPlayer.name}'s turn`;
 
         if (clickedCell.textContent !== "") {
           console.log("This cell is already filled, choose another one");
@@ -73,6 +72,7 @@ const displayController = (function () {
           }
           currentPlayer = gameLogic.changeCurrentPlayer(currentPlayer);
         }
+        gameStatus.textContent = `It's ${currentPlayer.name}'s turn`;
       });
     });
   };

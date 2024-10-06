@@ -24,14 +24,17 @@ form {
 
 .board {
   display: grid;
+  grid-template-columns: 100px 100px 100px;
   grid-template-areas: 
     "topL topM topR"
     "midL midM midR"
-    "botL botM botR";
+    "botL botM botR"
+    "game-status game-status game-status";
   width: fit-content;
 }
 
 .game-status {
+  grid-area: game-status;
   color: lightgray;
   font-size: 25px;
 }
