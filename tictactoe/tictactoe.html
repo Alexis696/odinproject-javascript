@@ -14,12 +14,13 @@
       <input type="text" id="player-name" required><br>
 
       <label class="form-label" for="player-symbol">Player Symbol (only 1 character):</label>
-      <input type="text" id="player-symbol" required><br>
+      <input type="text" id="player-symbol" maxlength="1" required><br>
 
       <button class="add-player-button" type="submit">Add Player</button>
     </form>
     <h2>Play</h2>
     <div class="board" hidden="true">
+      <p class="game-status"></p>
       <div class="cell topL" data-index="0"></div>
       <div class="cell topM" data-index="1"></div>
       <div class="cell topR" data-index="2"></div>

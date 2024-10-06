@@ -10,13 +10,13 @@ function createPlayer(name, symbol) {
   let losses = 0;
 
   const getWinsLosses = () => `${wins}/${losses}`;
-  const Win = () => wins++;
-  const Lose = () => losses++;
-  return { name, symbol, getWinsLosses, Win, Lose };
+  const addWin = () => wins++;
+  const addLoss = () => losses++;
+  return { name, symbol, getWinsLosses, addWin, addLoss };
 }
 
-const displayController = (function() {
-  const updatePlayerTable = function() {
+const displayController = (function () {
+  const updatePlayerTable = function () {
     const playerTable = document.querySelector("#player-table tbody");
     playerTable.innerHTML = "";
 
@@ -33,23 +33,43 @@ const displayController = (function() {
     });
   };
 
-  const runGame = function() {
+  const clearBoard = function () {
+    for (let i = 0; i < 9; i++) {
+      document.querySelectorAll(".cell")[i].textContent = "";
+    }
+  };
+
+  const runGame = function () {
     gameBoard.style.visibility = "visible";
     addPlayerButton.style.display = "none";
 
     let currentPlayer = listOfPlayers[0];
 
+    const gameStatus = document.querySelector(".game-status");
+    gameStatus.textContent = `It's ${currentPlayer.name}'s turn`;
+
     cells.forEach((cell) => {
-      cell.addEventListener("click", function(event) {
+      cell.addEventListener("click", function (event) {
         const clickedCell = event.target;
+        gameStatus.textContent = `It's ${currentPlayer.name}'s turn`;
 
         if (clickedCell.textContent !== "") {
           console.log("This cell is already filled, choose another one");
+          alert("This cell is already filled, choose another one");
         } else {
           clickedCell.textContent = currentPlayer.symbol;
           if (gameLogic.checkWinner(currentPlayer)) {
             console.log(`${currentPlayer.name} won!`);
+            gameLogic.addWinLossToPlayers(currentPlayer);
+            updatePlayerTable();
+            clearBoard();
+            alert(`${currentPlayer.name} won!`);
             return;
+          }
+          if (gameLogic.checkIfTie()) {
+            updatePlayerTable();
+            clearBoard();
+            alert("It's a tie!");
           }
           currentPlayer = gameLogic.changeCurrentPlayer(currentPlayer);
         }
@@ -60,8 +80,8 @@ const displayController = (function() {
   return { updatePlayerTable, runGame };
 })();
 
-const gameLogic = (function() {
-  const addPlayerToList = function() {
+const gameLogic = (function () {
+  const addPlayerToList = function () {
     const playerName = document.getElementById("player-name").value;
     const playerSymbol = document.getElementById("player-symbol").value;
 
@@ -72,18 +92,17 @@ const gameLogic = (function() {
     displayController.updatePlayerTable();
   };
 
-  addPlayerButton.addEventListener("submit", function(event) {
+  addPlayerButton.addEventListener("submit", function (event) {
     event.preventDefault();
 
     addPlayerToList();
-    console.log(listOfPlayers.length);
 
     if (listOfPlayers.length === 2) {
       displayController.runGame();
     }
   });
 
-  const changeCurrentPlayer = function(currentPlayer) {
+  const changeCurrentPlayer = function (currentPlayer) {
     if (currentPlayer == listOfPlayers[0]) {
       currentPlayer = listOfPlayers[1];
     } else {
@@ -93,7 +112,7 @@ const gameLogic = (function() {
     return currentPlayer;
   };
 
-  const checkWinner = function(currentPlayer) {
+  const checkWinner = function (currentPlayer) {
     if (
       (currentPlayer.symbol === document.querySelector(".topL").textContent &&
         currentPlayer.symbol === document.querySelector(".topM").textContent &&
@@ -125,5 +144,32 @@ const gameLogic = (function() {
     return false;
   };
 
-  return { changeCurrentPlayer, checkWinner };
+  const checkIfTie = function () {
+    if (
+      document.querySelector(".topL").textContent !== "" &&
+      document.querySelector(".topM").textContent !== "" &&
+      document.querySelector(".topR").textContent !== "" &&
+      document.querySelector(".midL").textContent !== "" &&
+      document.querySelector(".midM").textContent !== "" &&
+      document.querySelector(".midR").textContent !== "" &&
+      document.querySelector(".botL").textContent !== "" &&
+      document.querySelector(".botM").textContent !== "" &&
+      document.querySelector(".botR").textContent !== ""
+    ) {
+      return true;
+    }
+    return false;
+  };
+
+  const addWinLossToPlayers = function (currentPlayer) {
+    if (currentPlayer === listOfPlayers[0]) {
+      listOfPlayers[0].addWin();
+      listOfPlayers[1].addLoss();
+    } else if (currentPlayer === listOfPlayers[1]) {
+      listOfPlayers[1].addWin();
+      listOfPlayers[0].addLoss();
+    }
+  };
+
+  return { changeCurrentPlayer, checkWinner, checkIfTie, addWinLossToPlayers };
 })();
