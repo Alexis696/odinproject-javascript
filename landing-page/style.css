@@ -47,10 +47,11 @@ body {
 
 .hero-section-part {
   display: flex;
-  padding: 100px;
   flex-direction: column;
   align-items: flex-start;
-  width: 50%;
+  margin-right: 5%;
+  margin-left: 5%;
+  width: 35%;
 }
 
 .hero-main-text {
@@ -83,6 +84,7 @@ img {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-bottom: 75px;
   width: 100%;
 }
 
@@ -117,5 +119,27 @@ h2 {
 .logical-description {
   margin-top: 5px;
   text-align: center;
-  font-size: 14px;
+  font-size: 18px;
+}
+
+.testimonial-section {
+  background-color: #e5e7eb;
+  padding-left: 20%;
+  padding-right: 20%;
+  padding-top: 7%;
+  padding-bottom: 7%;
+}
+
+.testimonial {
+  font-size: 36px;
+  font-weight: 300;
+  font-style: italic;
+  color: #1f2937;
+}
+
+.author {
+  font-size: 18px;
+  font-weight: bold;
+  padding-right: 5%;
+  text-align: right;
 }
