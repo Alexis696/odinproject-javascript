@@ -4,7 +4,8 @@ body {
   margin: 0;
 }
 
-.nav-bar {
+.nav-bar,
+footer {
   display: flex;
   background-color: #1f2937;
   width: 100%;
@@ -43,14 +44,17 @@ body {
   display: flex;
   background-color: #1f2937;
   width: 100%;
+  justify-content: center;
+  gap: 5%;
+  padding-top: 10%;
+  padding-bottom: 10%;
 }
 
 .hero-section-part {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right: 5%;
-  margin-left: 5%;
+  justify-content: center;
   width: 35%;
 }
 
@@ -65,7 +69,8 @@ body {
   font-size: 18px;
 }
 
-.hero-button {
+.hero-button,
+.cta-button {
   color: #F9FAF8;
   font-size: 18px;
   background-color: #3882f6;
@@ -142,4 +147,36 @@ h2 {
   font-weight: bold;
   padding-right: 5%;
   text-align: right;
+}
+
+.cta-section {
+  display: flex;
+  padding: 5%;
+  justify-content: center;
+}
+
+.cta-box {
+  display: flex;
+  border-radius: 5px;
+  background-color: #3882f6;
+  justify-content: center;
+  align-items: center;
+  width: 70%;
+  padding: 3%;
+  gap: 10%;
+}
+
+.primary {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.cta-button {
+  border-color: #e5e7eb;
+  height: fit-content;
+  font-weight: bold;
+}
+
+footer {
+  justify-content: center;
 }
