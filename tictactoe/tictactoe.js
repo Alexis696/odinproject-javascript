@@ -48,6 +48,13 @@ const displayController = (function () {
     const gameStatus = document.querySelector(".game-status");
     gameStatus.textContent = `It's ${currentPlayer.name}'s turn`;
 
+    const restartButton = document.querySelector(".restart-button");
+    restartButton.addEventListener("click", function () {
+      clearBoard();
+      restartButton.hidden = true;
+      gameStatus.textContent = `It's ${currentPlayer.name}'s turn`;
+    });
+
     cells.forEach((cell) => {
       cell.addEventListener("click", function (event) {
         const clickedCell = event.target;
@@ -61,8 +68,9 @@ const displayController = (function () {
             console.log(`${currentPlayer.name} won!`);
             gameLogic.addWinLossToPlayers(currentPlayer);
             updatePlayerTable();
-            clearBoard();
-            alert(`${currentPlayer.name} won!`);
+            restartButton.hidden = false;
+            gameStatus.textContent = `${currentPlayer.name} has won! Press the button to play again.`;
+            //alert(`${currentPlayer.name} won!`);
             return;
           }
           if (gameLogic.checkIfTie()) {
